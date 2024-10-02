@@ -1,37 +1,43 @@
+import dotenv from "dotenv";
 import { NatsService } from "../pubsub/nats";
+import { createAppJwt } from "../pubsub/userJwt";
 
-const natsUrl = "url-to-nats.com";
-const subject = "example.mysubject";
-const publisherNatsCredsFile = `-----BEGIN NATS USER JWT-----
-PLEASE_CONTACT_US_FOR_JWT_VALUE
-------END NATS USER JWT------
+dotenv.config();
 
-************************* IMPORTANT *************************
-NKEY Seed printed below can be used to sign and prove identity.
-NKEYs are sensitive and should be treated as secrets.
+const natsUrl = "europe-west3-gcp-dl-testnet-brokernode-frankfurt01.synternet.com:4222";
+// const subject = "stark.energytrade.UEI";
+const subject = "stark.sports.data";
+const publisherAccessToken = process.env.PUBLISH_ACCESS_TOKEN??"";
 
------BEGIN USER NKEY SEED-----
-PLEASE_CONTACT_US_FOR_NKEY_SEED_VALUE
-------END USER NKEY SEED------
-
-*************************************************************`;
 
 async function main() {
   // Connect to the NATS server with credentials
   const service = new NatsService({
     url: natsUrl,
-    natsCredsFile: publisherNatsCredsFile,
+    natsCredsFile: createAppJwt(publisherAccessToken),
+    // natsCredsFile: publisherNatsCredsFile,
   });
 
   console.log("Connecting to NATS server...");
   await service.waitForConnection();
   console.log("Connected to NATS server.");
 
-  const message = { hello: "world!" };
-  console.log(
-    `Publishing message: ${JSON.stringify(message)} to subject: ${subject}`
-  );
-  service.publishJSON(subject, message);
+  // const message = { hello: "world!" };
+  let count = 1;
+  setInterval(async () => {
+    try {
+      const response = await fetch("https://cricbuzz-live.vercel.app/v1/score/100229", {
+        method: "GET",
+      });
+      const data = await response.json();
+      // const message = { hello: "world! "+count };
+      console.log(`Publishing message : ${count} ${JSON.stringify(data.data)} to subject: ${subject}`);
+      await service.publishJSON(subject, data.data);
+      count++;
+    } catch (error) {
+      console.error("Failed to fetch data after multiple attempts:", error);
+    }
+  }, 10000);
 }
 
 main().catch((err) => {

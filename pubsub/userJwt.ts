@@ -30,7 +30,7 @@ function generateUserJwt({
   const payload = {
     jti: getJti(),
     iat: getIat(),
-    exp: getExp(expirationDate),
+    // exp: getExp(expirationDate),
     iss: developer.getPublicKey(),
     name: "developer",
     sub: user.getPublicKey(),

@@ -1,3 +1,4 @@
+import axios from "axios";
 import dotenv from "dotenv";
 import { NatsService } from "../pubsub/nats";
 import { createAppJwt } from "../pubsub/userJwt";
@@ -12,25 +13,64 @@ let publishInterval: NodeJS.Timeout;
 let fetchInterval: NodeJS.Timeout;
 let isConnected = false;
 
+// async function fetchLiveMatches() {
+//   try {
+//     const response = await fetch("https://cricbuzz-live.vercel.app/v1/matches/live", {
+//       method: "GET",
+//     });
+//     const data = await response.json();
+//     console.log("API Response:", JSON.stringify(data, null, 2));
+    
+//     if (!data || !data.data || !Array.isArray(data.data.matches)) {
+//       console.error("Unexpected API response structure");
+//       return [];
+//     }
+    
+//     return data.data.matches.map((match: any) => match.id);
+//   } catch (error) {
+//     console.error("Error fetching live matches:", error);
+//     return [];
+//   }
+// }
+
+
 async function fetchLiveMatches() {
   try {
-    const response = await fetch("https://cricbuzz-live.vercel.app/v1/matches/live", {
-      method: "GET",
+    const response = await axios.get("https://cricbuzz-live.vercel.app/v1/matches/live", {
+      timeout: 10000,
+      validateStatus: function (status) {
+        return status >= 200 && status < 300; // default
+      },
     });
-    const data = await response.json();
-    console.log("API Response:", JSON.stringify(data, null, 2));
-    
-    if (!data || !data.data || !Array.isArray(data.data.matches)) {
+
+    console.log("API Response:", JSON.stringify(response.data, null, 2));
+
+    if (!response.data || !response.data.data || !Array.isArray(response.data.data.matches)) {
       console.error("Unexpected API response structure");
       return [];
     }
-    
-    return data.data.matches.map((match: any) => match.id);
+
+    return response.data.data.matches.map((match: any) => match.id);
   } catch (error) {
-    console.error("Error fetching live matches:", error);
+    if (axios.isAxiosError(error)) {
+      console.error("Axios error details:");
+      console.error("  Message:", error.message);
+      console.error("  Code:", error.code);
+      console.error("  Config:", JSON.stringify(error.config, null, 2));
+      if (error.response) {
+        console.error("  Response status:", error.response.status);
+        console.error("  Response headers:", error.response.headers);
+        console.error("  Response data:", error.response.data);
+      } else if (error.request) {
+        console.error("  No response received. Request details:", error.request);
+      }
+    } else {
+      console.error("Non-Axios error:", error);
+    }
     return [];
   }
 }
+
 
 async function fetchMatchScores(matchIds: string[]) {
   try {

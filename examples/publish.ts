@@ -13,19 +13,36 @@ let fetchInterval: NodeJS.Timeout;
 let isConnected = false;
 
 async function fetchLiveMatches() {
-  const response = await fetch("https://cricbuzz-live.vercel.app/v1/matches/live", {
-    method: "GET",
-  });
-  const data = await response.json();
-  return data.data.matches.map((match: any) => match.id);
+  try {
+    const response = await fetch("https://cricbuzz-live.vercel.app/v1/matches/live", {
+      method: "GET",
+    });
+    const data = await response.json();
+    console.log("API Response:", JSON.stringify(data, null, 2));
+    
+    if (!data || !data.data || !Array.isArray(data.data.matches)) {
+      console.error("Unexpected API response structure");
+      return [];
+    }
+    
+    return data.data.matches.map((match: any) => match.id);
+  } catch (error) {
+    console.error("Error fetching live matches:", error);
+    return [];
+  }
 }
 
 async function fetchMatchScores(matchIds: string[]) {
-  const responses = await Promise.all(matchIds.map((id) => fetch(`https://cricbuzz-live.vercel.app/v1/score/${id}`)));
-  const matchData = await Promise.all(responses.map((res) => res.json()));
-  return matchData.map((data, index) => ({
-    [matchIds[index]]: { ...data.data, update: data.data.update + Math.random() },
-  }));
+  try {
+    const responses = await Promise.all(matchIds.map((id) => fetch(`https://cricbuzz-live.vercel.app/v1/score/${id}`)));
+    const matchData = await Promise.all(responses.map((res) => res.json()));
+    return matchData.map((data, index) => ({
+      [matchIds[index]]: { ...data.data, update: data.data.update + Math.random() },
+    }));
+  } catch (error) {
+    console.error("Error fetching match scores:", error);
+    return [];
+  }
 }
 
 async function publishServiceFn(publishService: NatsService) {
@@ -39,7 +56,12 @@ async function publishServiceFn(publishService: NatsService) {
       }
 
       const liveMatchesId = await fetchLiveMatches();
-      console.log(liveMatchesId);
+      console.log("Live Matches:", liveMatchesId);
+
+      if (liveMatchesId.length === 0) {
+        console.log("No live matches found. Skipping publish.");
+        return;
+      }
 
       const liveMatchStats = await fetchMatchScores(liveMatchesId);
 
@@ -63,13 +85,13 @@ async function publishServiceFn(publishService: NatsService) {
   await fetchAndPublish();
 
   // Set up intervals for fetching and publishing
-  publishInterval = setInterval(fetchAndPublish, 1500); // Every 10 seconds
+  publishInterval = setInterval(fetchAndPublish, 1000); // Every 1.5 seconds
   fetchInterval = setInterval(async () => {
     const liveMatchesId = await fetchLiveMatches();
     console.log("Updated live matches:", liveMatchesId);
   }, 3600000); // Every hour
-}
 
+}
 function clearIntervals() {
   if (publishInterval) clearInterval(publishInterval);
   if (fetchInterval) clearInterval(fetchInterval);

@@ -100,7 +100,7 @@ async function publishServiceFn(publishService: NatsService) {
 
       if (liveMatchesId.length === 0) {
         console.log("No live matches found. Skipping publish.");
-        return;
+        // return;
       }
 
       const liveMatchStats = await fetchMatchScores(liveMatchesId);

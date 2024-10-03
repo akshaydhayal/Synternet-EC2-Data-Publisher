@@ -85,7 +85,7 @@ async function publishServiceFn(publishService: NatsService) {
   await fetchAndPublish();
 
   // Set up intervals for fetching and publishing
-  publishInterval = setInterval(fetchAndPublish, 5000); // Every 1.5 seconds
+  publishInterval = setInterval(fetchAndPublish, 20000); // Every 1.5 seconds
   fetchInterval = setInterval(async () => {
     const liveMatchesId = await fetchLiveMatches();
     console.log("Updated live matches:", liveMatchesId);

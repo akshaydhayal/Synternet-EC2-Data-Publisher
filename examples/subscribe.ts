@@ -5,8 +5,9 @@ import { createAppJwt } from "../pubsub/userJwt";
 dotenv.config();
 
 const natsUrl = "europe-west3-gcp-dl-testnet-brokernode-frankfurt01.synternet.com:4222";
-const subject = "stark.sports.data";
-// const subject = "synternet.price.all" ;
+const subject = "stark.news.live";
+// const subject = "stark.sports.data";
+// const subject = "synternet.price.all";
 // const subject = "stark.energytrade.UEI";
 const subscribeAccessToken = process.env.SUBSCRIBE_ACCESS_TOKEN ?? "";
 

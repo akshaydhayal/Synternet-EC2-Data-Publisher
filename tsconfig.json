@@ -13,6 +13,6 @@
     },
     "resolveJsonModule": true
   },
-  "include": ["pubsub/**/*", "index.ts"],
+  "include": ["pubsub2/**/*", "index.ts"],
   "exclude": ["node_modules", "dist"]
 }

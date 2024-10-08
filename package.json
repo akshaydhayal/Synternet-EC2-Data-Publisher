@@ -6,17 +6,26 @@
   "scripts": {
     "test": "jest",
     "publish": "ts-node -T ./examples/publish.ts",
-    "subscribe": "ts-node -T ./examples/subscribe.ts"
+    "publish2": "ts-node -T ./examples/publish2.ts",
+    "subscribe": "ts-node -T ./examples/subscribe.ts",
+    "subscribe2": "ts-node -T ./examples/subscribe2.ts",
+    "subscribe3": "ts-node -T ./examples/subscribe3.ts",
+    "rss": "ts-node -T ./examples/rssFeeds.ts",
+    "publishNews": "ts-node -T ./examples/publishNews.ts"
+
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "axios": "^1.7.7",
     "base64url": "^3.0.1",
     "date-fns": "^2.30.0",
     "dotenv": "^16.4.5",
     "nats": "^2.13.1",
-    "uuid": "^9.0.0"
+    "pubsub-ws": "github:Synternet/pubsub-ws",
+    "uuid": "^9.0.0",
+    "xml2js": "^0.6.2"
   },
   "devDependencies": {
     "@types/jest": "^29.5.1",

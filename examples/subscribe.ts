@@ -4,7 +4,10 @@ import { createAppJwt } from "../pubsub/userJwt";
 
 dotenv.config();
 
-const natsUrl = "europe-west3-gcp-dl-testnet-brokernode-frankfurt01.synternet.com:4222";
+// const natsUrl = "wss://europe-west3-gcp-dl-testnet-brokernode-frankfurt01.synternet.com:443";
+
+// const natsUrl = "europe-west3-gcp-dl-testnet-brokernode-frankfurt01.synternet.com:4222";
+const natsUrl = "europe-west3-gcp-dl-testnet-brokernode-frankfurt01.synternet.com";
 const subject = "stark.news.live";
 // const subject = "stark.sports.data";
 // const subject = "synternet.price.all";

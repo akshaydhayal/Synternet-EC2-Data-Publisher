@@ -2,6 +2,8 @@ import { subscribe, publish, natsConnect } from "../pubsub2";
 import { Message } from "../pubsub2";
 import { NatsConfig } from "../pubsub2/types";
 import { createAppJwt } from "../pubsub2/userJwt";
+import dotenv from "dotenv";
+dotenv.config();
 
 const userCredsJWT = "USER_JWT";
 const userCredsSeed = "CREDS_SEED";

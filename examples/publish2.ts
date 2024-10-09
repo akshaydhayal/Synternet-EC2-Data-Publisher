@@ -1,47 +1,29 @@
-import { subscribe, Message, NatsConfig, createAppJwt, publish, natsConnect } from "pubsub-ws";
-import { getRSSFeeds } from "./rssFeeds";
+import { NatsService } from "../pubsub/nats";
+import { createAppJwt } from "../pubsub/userJwt";
 
-const natsWsUrl = "wss://europe-west3-gcp-dl-testnet-brokernode-frankfurt01.synternet.com:443";
+// See: https://docs.synternet.com/build/dl-access-points
+const natsUrl = "europe-west3-gcp-dl-testnet-brokernode-frankfurt01.synternet.com";
+const subject = "stark.energytrade.UEI";
 
-const userCredsJWT = "USER_JWT";
-const userCredsSeed = "CREDS_SEED";
-const exampleSubscribeSubject = "synternet.price.all";
-const examplePublishSubject = "stark.news.live";
-const publisherAccessToken = process.env.PUBLISH_ACCESS_TOKEN ?? "";
-const subsciberAccessToken = process.env.SUBSCRIBE_ACCESS_TOKEN ?? "";
-
-var config: NatsConfig;
-
-// async function republishData(message: Message) {
-async function republishData() {
-  console.log("Received message on", exampleSubscribeSubject, "subject");
-  const message=await getRSSFeeds();
-//   publish(examplePublishSubject, message.data, config);
-  await publish(examplePublishSubject, message, config);
-  console.log("Published message on", examplePublishSubject, "subject", message);
-}
-
-const onMessages = async (messages: Message[]) => {
-  messages.filter((message) => message.subject === exampleSubscribeSubject).forEach((message) => republishData(message));
-};
-
-const onError = (text: string, error: Error) => {
-  console.error(text, error);
-};
-
+const publisherNatsCredsFile = createAppJwt("SAAJEPLPVNPE3NYIOMUYN36C65NTPSXZ6WW4UPW6POKONK2XPMW4EHOPEI");
 async function main() {
-  config = { url: natsWsUrl };
-  const { userSeed: seed, jwt } = createAppJwt(subsciberAccessToken);
-
-  await subscribe({
-    onMessages,
-    onError,
-    jwt: jwt,
-    nkey: seed,
-    config: config,
-    subject: exampleSubscribeSubject,
+  // Connect to the NATS server with credentials
+  const service = new NatsService({
+    url: natsUrl,
+    natsCredsFile: publisherNatsCredsFile,
   });
+
+  console.log("Connecting to NATS server...");
+  await service.waitForConnection();
   console.log("Connected to NATS server.");
+
+  const message = { hello: "world!" };
+  console.log(`Publishing message: ${JSON.stringify(message)} to subject: ${subject}`);
+  await service.publishJSON(subject, message);
+  console.log("published!!");
 }
 
-main();
+main().catch((err) => {
+  console.error("Error:", err);
+  process.exit(1);
+});

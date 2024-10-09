@@ -2,16 +2,18 @@ import { subscribe, publish, natsConnect } from "../pubsub2";
 import { Message } from "../pubsub2";
 import { NatsConfig } from "../pubsub2/types";
 import { createAppJwt } from "../pubsub2/userJwt";
-
+import dotenv from "dotenv";
+dotenv.config();
 
 const examplePublishSubject = "stark.news.live";
 const publisherAccessToken = process.env.PUBLISH_ACCESS_TOKEN ?? "";
 
-// wss://url.com:443
 const natsWsUrl = "wss://europe-west3-gcp-dl-testnet-brokernode-frankfurt01.synternet.com:443";
+// const exampleSubscribeSubject = "stark.sports.data";
 const exampleSubscribeSubject = "stark.news.live";
 // const exampleSubscribeSubject = "synternet.price.all";
-const subscribeAccessToken = process.env.SUBSCRIBE_ACCESS_TOKEN ?? "";
+// const subscribeAccessToken = process.env.SUBSCRIBE_ACCESS_TOKEN ?? "";
+const subscribeAccessToken = 'SAAMTLX5KZ27GIVAHQNKD5FOEV5UZO73W2NEWMRHOVBUYGE42S5ZMCH6UQ';
 
 var config: NatsConfig;
 

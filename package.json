@@ -9,9 +9,8 @@
     "publish2": "ts-node -T ./examples/publish2.ts",
     "subscribe": "ts-node -T ./examples/subscribe.ts",
     "subscribe2": "ts-node -T ./examples/subscribe2.ts",
-    "subscribe3": "ts-node -T ./examples/subscribe3.ts",
-    "rss": "ts-node -T ./examples/rssFeeds.ts",
-    "publishNews": "ts-node -T ./examples/publishNews.ts"
+    "match": "ts-node -T ./examples/match.ts",
+    "match2": "ts-node -T ./examples/match2.ts"
 
   },
   "keywords": [],

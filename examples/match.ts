@@ -39,7 +39,7 @@ export function simulateCricketMatch() {
       this.totalOvers = 2; // Increased to 20 overs for meaningful bowler usage
       this.ballsPerOver = 6;
       this.maxWickets = 10;
-      this.updateInterval = 1000; // Reduced to 1 second for faster updates
+      this.updateInterval = 10000; // Reduced to 1 second for faster updates
 
       this.firstInnings = this.initializeInnings(this.teamA, this.teamB);
       this.secondInnings = this.initializeInnings(this.teamB, this.teamA);

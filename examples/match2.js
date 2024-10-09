@@ -3,7 +3,7 @@
 const { v4: uuidv4 } = require("uuid"); // Ensure you have installed uuid using npm install uuid
 
 class CricketMatch {
-  constructor(teamA, teamB, totalOvers = 2, ballsPerOver = 6, maxWickets = 10, updateInterval = 1000) {
+  constructor(teamA, teamB, totalOvers = 2, ballsPerOver = 6, maxWickets = 10, updateInterval = 15000) {
     this.teamA = teamA;
     this.teamB = teamB;
     this.totalOvers = totalOvers;

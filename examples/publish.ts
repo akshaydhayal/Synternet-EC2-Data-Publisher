@@ -46,6 +46,16 @@ async function fetchMatchScores(matchIds: string[]) {
   }
 }
 
+async function fetchGeneratedMatch() {
+  try {
+    const response = await fetch('ec2-13-60-248-140.eu-north-1.compute.amazonaws.com:3004/currentMatch');
+    const matchData = await response.json();
+    return matchData;
+  } catch (error) {
+    console.error("Error fetching Genrated match scores:", error);
+    return {};
+  }
+}
 async function publishServiceFn(publishService: NatsService) {
   let count = 1;
 
@@ -65,10 +75,11 @@ async function publishServiceFn(publishService: NatsService) {
       }
 
       const liveMatchStats = await fetchMatchScores(liveMatchesId);
-
+      const generatedMatch=await fetchGeneratedMatch();
       const toPublishData = {
         liveMatchDetails: liveMatchesId,
         liveMatchStats,
+        generatedMatch
       };
 
       console.log(`Publishing message count: ${count} ${JSON.stringify(toPublishData)}`);

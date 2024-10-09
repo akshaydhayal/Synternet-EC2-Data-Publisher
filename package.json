@@ -11,7 +11,6 @@
     "subscribe2": "ts-node -T ./examples/subscribe2.ts",
     "match": "ts-node -T ./examples/match.ts",
     "match2": "ts-node -T ./examples/match2.ts"
-
   },
   "keywords": [],
   "author": "",
@@ -19,12 +18,14 @@
   "dependencies": {
     "axios": "^1.7.7",
     "base64url": "^3.0.1",
+    "cors": "^2.8.5",
     "date-fns": "^2.30.0",
     "dotenv": "^16.4.5",
+    "express": "^4.21.0",
+    "http-proxy-middleware": "^3.0.2",
+    "mongoose": "^8.7.0",
     "nats": "^2.13.1",
-    "pubsub-ws": "github:Synternet/pubsub-ws",
-    "uuid": "^9.0.0",
-    "xml2js": "^0.6.2"
+    "uuid": "^9.0.0"
   },
   "devDependencies": {
     "@types/jest": "^29.5.1",

@@ -1,38 +1,44 @@
 {
-  "liveMatchDetails": [
-    {
-      "id": "100229",
-      "title": "India vs Australia",
-      "teams": [
-        { "team": "India", "run": "2" },
-        { "team": "Australia", "run": "0" }
-      ],
-      "timeAndPlace": { "date": "Today", "time": "-", "place": "at Kanpur, Green Park" },
-      "overview": "India 2/0"
-    }
-  ],
-  "liveMatchStats": {
-    "title": "India vs Australia, Live Cricket Scorex",
-    "update": "Rohit Sharma scores 2 run(s)",
-    "liveScore": "India 2/0",
-    "runRate": "20.00",
-    "batsmanOne": "Rohit Sharma",
-    "batsmanOneRun": 2,
-    "batsmanOneBall": 1,
-    "batsmanOneSR": "200.00",
-    "batsmanTwo": "Shikhar Dhawan",
-    "batsmanTwoRun": 0,
-    "batsmanTwoBall": 0,
-    "batsmanTwoSR": "0.00",
-    "bowlerOne": "Mitchell Starc",
-    "bowlerOneOver": "0.1",
-    "bowlerOneRun": 2,
-    "bowlerOneWickets": 0,
-    "bowlerOneEconomy": "12.00",
-    "bowlerTwo": null,
-    "bowlerTwoOver": null,
-    "bowlerTwoRun": null,
-    "bowlerTwoWickets": null,
-    "bowlerTwoEconomy": null
+  "liveMatchDetails": [],
+  "liveMatchStats": [],
+  "generatedMatch": {
+    "liveMatchDetails": [
+      {
+        "id": "3db0b739-f3c4-48a2-9470-7493cc81667f",
+        "title": "India vs New Zealand",
+        "teams": [
+          { "team": "India", "run": "18" },
+          { "team": "New Zealand", "run": "0" }
+        ],
+        "timeAndPlace": { "date": "Today", "time": "-", "place": "at Kanpur, Green Park" },
+        "overview": "India 18/0"
+      }
+    ],
+    "liveMatchStats": {
+      "title": "India vs New Zealand, Live Cricket Score",
+      "update": "Rohit Sharma scores 6 run(s)",
+      "liveScore": "India 18/0",
+      "runRate": "18.00",
+      "batsmanOne": "Rohit Sharma",
+      "batsmanOneRun": 18,
+      "batsmanOneBall": 6,
+      "batsmanOneSR": "300.00",
+      "batsmanTwo": "Shikhar Dhawan",
+      "batsmanTwoRun": 0,
+      "batsmanTwoBall": 0,
+      "batsmanTwoSR": "0.00",
+      "bowlerOne": "Trent Boult",
+      "bowlerOneOver": "1.0",
+      "bowlerOneRun": 18,
+      "bowlerOneWickets": 0,
+      "bowlerOneEconomy": "18.00",
+      "bowlerTwo": null,
+      "bowlerTwoOver": null,
+      "bowlerTwoRun": null,
+      "bowlerTwoWickets": null,
+      "bowlerTwoEconomy": null
+    },
+    "result": "",
+    "matchEnded": false
   }
 }

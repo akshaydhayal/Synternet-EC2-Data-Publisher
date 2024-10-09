@@ -49,6 +49,7 @@ async function fetchMatchScores(matchIds: string[]) {
 async function fetchGeneratedMatch() {
   try {
     const response = await fetch('ec2-13-60-248-140.eu-north-1.compute.amazonaws.com:3004/currentMatch');
+    // const response = await fetch("http://localhost:3004/currentMatch");
     const matchData = await response.json();
     return matchData;
   } catch (error) {

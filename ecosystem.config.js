@@ -1,7 +1,7 @@
 module.exports = {
   apps: [
     {
-      name: "publish-app",
+      name: "publish",
       script: "./node_modules/.bin/ts-node", // Path to locally installed ts-node
       args: "-T ./examples/publish.ts",
       interpreter: "node",

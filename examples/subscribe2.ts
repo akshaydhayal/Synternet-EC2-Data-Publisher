@@ -9,8 +9,8 @@ const examplePublishSubject = "stark.news.live";
 const publisherAccessToken = process.env.PUBLISH_ACCESS_TOKEN ?? "";
 
 const natsWsUrl = "wss://europe-west3-gcp-dl-testnet-brokernode-frankfurt01.synternet.com:443";
-// const exampleSubscribeSubject = "stark.sports.data";
-const exampleSubscribeSubject = "stark.news.live";
+const exampleSubscribeSubject = "stark.sports.data";
+// const exampleSubscribeSubject = "stark.news.live";
 // const exampleSubscribeSubject = "synternet.price.all";
 // const subscribeAccessToken = process.env.SUBSCRIBE_ACCESS_TOKEN ?? "";
 const subscribeAccessToken = 'SAAMTLX5KZ27GIVAHQNKD5FOEV5UZO73W2NEWMRHOVBUYGE42S5ZMCH6UQ';

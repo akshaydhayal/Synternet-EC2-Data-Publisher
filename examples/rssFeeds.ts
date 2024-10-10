@@ -17,6 +17,25 @@ async function getRSS(url) {
   }
 }
 
+function getRandom10Entries(dataArray){
+  // Ensure we don't exceed the array length when picking a random start index
+  const maxStartIndex = Math.max(0, dataArray.length - 12);
+
+  // Generate a random start index between 0 and maxStartIndex
+  const randomStartIndex = Math.floor(Math.random() * (maxStartIndex + 1));
+  console.log(dataArray.length,maxStartIndex,randomStartIndex);
+
+  // Slice the array from randomStartIndex to randomStartIndex + 10
+  return dataArray.slice(randomStartIndex, randomStartIndex + 10).map((item) => ({
+    title: item.title,
+    link: item.link,
+    description: item.description,
+    creator: item["dc:creator"], // Assuming 'dc:creator' is the creator field
+    pubDate: item.pubDate,
+    image: item["media:content"] ? item["media:content"].$.url : null, // Extract image URL or set to null if not present
+  }));
+}
+
 function getFirst10Entries(dataArray) {
   // Map over the first 10 entries, extracting only the required fields
   return dataArray.slice(0, 10).map((item) => ({
@@ -36,7 +55,9 @@ export const getRSSFeeds=async () => {
   
   // console.log(rssData);
   const news=rssData.rss.channel.item;
-  const first10Entries = getFirst10Entries(news);
+
+  // const first10Entries = getFirst10Entries(news);
+  const first10Entries = getRandom10Entries(news);
   // console.log(first10Entries);
   // console.log(first10Entries.length)
   return first10Entries;
